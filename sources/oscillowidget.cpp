@@ -5,11 +5,32 @@
 
 OscilloWidget::OscilloWidget(QWidget *parent)
     : QCustomPlot(parent) {
+
+    m_hRes = 0;
+
     setBackground(QBrush(Qt::black));
+
     yAxis2->setVisible(true);
 
     m_channelTrigger = 0;
     m_activeChannel = 0;
+
+    QSharedPointer<XResTicker> ticker(new XResTicker);
+    m_ticker = ticker.data();
+    xAxis->setTicker(ticker);
+
+    ticker->setScaleStrategy(QCPAxisTickerFixed::ssNone);
+
+    xAxis->setRange(0,299);
+
+    xAxis->setBasePen(QPen(Qt::white, 1));
+    xAxis->setTickPen(QPen(Qt::white, 1));
+    xAxis->setSubTickPen(QPen(Qt::white, 1));
+    xAxis->setTickLabelColor(Qt::white);
+
+    xAxis->grid()->setPen(QPen(QColor(140, 140, 140), 1, Qt::DotLine));
+    xAxis->grid()->setSubGridPen(QPen(QColor(80, 80, 80), 1, Qt::DotLine));
+    xAxis->grid()->setSubGridVisible(true);
 
     m_horizontalZeroLine = new QCPItemStraightLine (this);
     m_horizontalZeroLine->setPen(QPen(Qt::white));
@@ -50,6 +71,18 @@ OscilloWidget::OscilloWidget(QWidget *parent)
     m_hCursor2->setPos(196);
     m_hCursor2->setPen(QPen(Qt::lightGray, 1.0, Qt::DashLine));
     m_hCursor2->setLayer("CursorsLayer");
+}
+
+void OscilloWidget::updateHRes(int res){
+    m_hRes = res;
+    m_ticker->setRes(m_hRes);
+    graph(0)->rescaleKeyAxis(true);
+    replot();
+    emit hResChanged();
+}
+
+int OscilloWidget::hRes(){
+    return m_hRes;
 }
 
 int OscilloWidget::activeChannel(){

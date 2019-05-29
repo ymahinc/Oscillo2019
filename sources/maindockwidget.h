@@ -5,8 +5,6 @@
 
 class OscilloWidget;
 
-#include "xresticker.h"
-
 namespace Ui {
 class MainDockWidget;
 }
@@ -20,7 +18,6 @@ public:
     ~MainDockWidget();
 
 private slots:
-    void onResChanged(int newRes);
     void updateTriggerChannel(int index);
     void onTriggerValueChanged(int value);
     void onTriggerValueChangedFromDial(int value);
@@ -32,7 +29,6 @@ private slots:
 private:
     Ui::MainDockWidget *ui;
     OscilloWidget *m_plotter;
-    XResTicker *m_ticker;
 
     QString formatedString(double value, QString unit = " V");
 };

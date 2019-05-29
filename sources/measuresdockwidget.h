@@ -19,10 +19,16 @@ public:
 
 private slots:
     void updateVCursorsTable();
+    void updateHCursorsTable();
 
 private:
     Ui::MeasuresDockWidget *ui;
     OscilloWidget *m_plotter;
+
+    QString formatedPeriod(double value, QString unit);
+    QString formatedFrequency(double value, QString unit);
+    QString formatedVoltage(double value);
+    double voltValue(double absVal, int channel);
 };
 
 #endif // MEASURESDOCKWIDGET_H

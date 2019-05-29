@@ -4,6 +4,7 @@
 #include <QVector>
 #include <QColor>
 #include "qcustomplot.h"
+#include "xresticker.h"
 class Cursor;
 class Channel;
 
@@ -24,14 +25,17 @@ public:
     int activeChannel();
     void setActiveChannel(int channel);
     QVector<Channel *> channels();
+    int hRes();
 
 signals:
     void channelResChanged(int res, int index);
     void activeChannelChanged(int channel);
     void channelColorChanged(QColor color, int index);
+    void hResChanged();
 
 public slots:
     void toggleCursors(int toggle);
+    void updateHRes(int res);
 
 private:
     Cursor *m_triggerCursor;
@@ -44,6 +48,8 @@ private:
     QCPItemStraightLine  *m_verticalZeroLine;
     QVector<Channel *> m_channels;
     int m_activeChannel;
+    XResTicker *m_ticker;
+    int m_hRes;
 };
 
 #endif // OSCILLOWIDGET_H

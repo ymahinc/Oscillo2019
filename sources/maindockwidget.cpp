@@ -22,25 +22,7 @@ MainDockWidget::MainDockWidget(OscilloWidget *plotter, QWidget *parent) :
         ui->triggerCombo->insertItem(0,tr("Channel ") + QString::number(i));
     ui->triggerCombo->setCurrentIndex(0);
 
-    QSharedPointer<XResTicker> ticker(new XResTicker);
-    m_ticker = ticker.data();
-    m_plotter->xAxis->setTicker(ticker);
-
-    ticker->setTickStep(30);
-    ticker->setScaleStrategy(QCPAxisTickerFixed::ssNone);
-
-    m_plotter->xAxis->setRange(0,299);
-
-    m_plotter->xAxis->setBasePen(QPen(Qt::white, 1));
-    m_plotter->xAxis->setTickPen(QPen(Qt::white, 1));
-    m_plotter->xAxis->setSubTickPen(QPen(Qt::white, 1));
-    m_plotter->xAxis->setTickLabelColor(Qt::white);
-
-    m_plotter->xAxis->grid()->setPen(QPen(QColor(140, 140, 140), 1, Qt::DotLine));
-    m_plotter->xAxis->grid()->setSubGridPen(QPen(QColor(80, 80, 80), 1, Qt::DotLine));
-    m_plotter->xAxis->grid()->setSubGridVisible(true);
-
-    connect(ui->xResDial,SIGNAL(resChanged(int)),this,SLOT(onResChanged(int)));
+    connect(ui->xResDial,SIGNAL(resChanged(int)),m_plotter,SLOT(updateHRes(int)));
     connect(m_plotter,SIGNAL(channelResChanged(int,int)),this,SLOT(updateTrigLabel(int,int)));
     connect(m_plotter,SIGNAL(channelColorChanged(QColor,int)),this,SLOT(onColorChange(QColor,int)));
     connect(ui->cursorsCheckBox,SIGNAL(stateChanged(int)),m_plotter,SLOT(toggleCursors(int)));
@@ -147,10 +129,4 @@ void MainDockWidget::updateTriggerChannel(int index){
 
 MainDockWidget::~MainDockWidget(){
     delete ui;
-}
-
-void MainDockWidget::onResChanged(int newRes){
-    m_ticker->setRes(newRes);
-    m_plotter->graph(0)->rescaleKeyAxis(true);
-    m_plotter->replot();
 }
