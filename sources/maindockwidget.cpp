@@ -26,6 +26,7 @@ MainDockWidget::MainDockWidget(OscilloWidget *plotter, QWidget *parent) :
     connect(m_plotter,SIGNAL(channelResChanged(int,int)),this,SLOT(updateTrigLabel(int,int)));
     connect(m_plotter,SIGNAL(channelColorChanged(QColor,int)),this,SLOT(onColorChange(QColor,int)));
     connect(ui->cursorsCheckBox,SIGNAL(stateChanged(int)),m_plotter,SLOT(toggleCursors(int)));
+    connect(ui->triggerModeCheckBox,SIGNAL(toggled(bool)),m_plotter,SLOT(changeTrigMode(bool)));
 
     updateTrigLabel();
 }
@@ -125,6 +126,7 @@ void MainDockWidget::updateTriggerChannel(int index){
         ui->triggerDial->setColor(m_plotter->graph(ui->triggerCombo->currentIndex())->pen().color());
         updateTrigLabel();
     }
+    m_plotter->updateTrigMode(index);
 }
 
 MainDockWidget::~MainDockWidget(){

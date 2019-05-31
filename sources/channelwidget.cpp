@@ -13,6 +13,10 @@ ChannelWidget::ChannelWidget(Channel *channel, QWidget *parent) :
     connect(ui->resDial,SIGNAL(resChanged(int)),m_channel,SLOT(setRes(int)));
     connect(ui->channelGroupBox,SIGNAL(toggled(bool)),m_channel,SLOT(setVisible(bool)));
     connect(ui->colorWidget,SIGNAL(colorSelectionChanged(QColor)),this,SLOT(updateColor(QColor)));
+    connect(ui->chan1ComboBox,SIGNAL(currentIndexChanged(int)),m_channel,SLOT(onChannelCoulpingChanged(int)));
+    connect(ui->invertCheckBox,SIGNAL(toggled(bool)), m_channel,SLOT(setInverted(bool)));
+    connect(ui->XSlider,SIGNAL(valueChanged(int)),m_channel,SLOT(setDX(int)));
+    connect(ui->YSlider,SIGNAL(valueChanged(int)),m_channel,SLOT(setDY(int)));
     ui->colorWidget->setColor(m_channel->color());
 }
 

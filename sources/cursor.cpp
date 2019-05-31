@@ -149,6 +149,7 @@ void Cursor::setPos(double pos){
         end->setCoords(pos,endY);
         m_plotter->replot();
     }
+    emit valueChanged(qRound(value()));
 }
 
 void Cursor::mouseReleaseEvent(QMouseEvent *event, const QPointF &startPos){

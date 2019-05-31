@@ -17,14 +17,24 @@ public:
     int currentRes();
     bool isVisible();
     int index();
+    QVector<double> yData;
+    int couplingMode();
+    bool isInverted();
+    int dX();
+    int dY();
 
 signals:
     void resChanged(int res, int index);
+    void channelCouplingChanged(int mode, int index);
 
 public slots:
     void updateColor(QColor color);
     void setVisible(bool visible);
     void setRes(int res);
+    void onChannelCoulpingChanged(int mode);
+    void setInverted(bool inverted);
+    void setDX(int dx);
+    void setDY(int dY);
 
 private:
     QColor m_color;
@@ -34,6 +44,10 @@ private:
     YResTicker *m_ticker;
     int m_index;
     bool m_isVisible;
+    int m_couplingMode;
+    bool m_inverted;
+    int m_dX;
+    int m_dY;
 };
 
 #endif // CHANNEL_H

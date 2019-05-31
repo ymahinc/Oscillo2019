@@ -197,10 +197,10 @@ QSlider::handle:horizontal {
 }</string>
                   </property>
                   <property name="minimum">
-                   <number>-361</number>
+                   <number>-362</number>
                   </property>
                   <property name="maximum">
-                   <number>362</number>
+                   <number>361</number>
                   </property>
                   <property name="orientation">
                    <enum>Qt::Horizontal</enum>

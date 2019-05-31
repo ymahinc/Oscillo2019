@@ -91,3 +91,5 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 RESOURCES += \
     oscilloscope.qrc
+
+RC_ICONS = sine.ico

@@ -4,6 +4,16 @@
 
 Channel::Channel(OscilloWidget *parent, int index)
     : QObject(parent), m_plotter(parent), m_index(index){
+
+    m_couplingMode = 0;
+
+    for (int i =0; i < 1024; i++)
+        yData << 0;
+
+    QVector<double> x;
+    for (int i = 0; i < 300; i++)
+        x << i;
+
     m_color = Qt::white;
     m_res = 0;
 
@@ -25,22 +35,43 @@ Channel::Channel(OscilloWidget *parent, int index)
         m_axis->grid()->setSubGridVisible(true);
     }
 
-    QVector<double> x(300), y(300);
-    for (int i=0; i<300; ++i)
-    {
-        if ( index == 0 ){
-            x[i] = i;
-            y[i] = qSin(i/10.0)*100.0+128;
-        }else{
-            x[i] = i;
-            y[i] = qCos(i/10.0)*100.0+128;
-        }
-    }
-
     m_plotter->addGraph();
-    m_plotter->graph(m_index)->setData(x, y);
+    m_plotter->graph(m_index)->setData(x, yData.mid(512-150,300));
 
     updateColor(m_color);
+}
+
+void Channel::setInverted(bool inverted){
+    m_inverted = inverted;
+}
+
+bool Channel::isInverted(){
+    return m_inverted;
+}
+
+void Channel::setDX(int dx){
+    m_dX = dx;
+}
+
+int Channel::dX(){
+    return m_dX;
+}
+
+void Channel::setDY(int dY){
+    m_dY = dY;
+}
+
+int Channel::dY(){
+    return m_dY;
+}
+
+int Channel::Channel::couplingMode(){
+    return m_couplingMode;
+}
+
+void Channel::onChannelCoulpingChanged(int mode){
+    m_couplingMode = mode;
+    emit channelCouplingChanged(mode,m_index);
 }
 
 int Channel::index(){

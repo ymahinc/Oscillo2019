@@ -16,7 +16,7 @@ PortThread::~PortThread(){
     wait();
 }
 
-void PortThread::setPort(QString &portName){
+void PortThread::setPort(QString portName){
     const QMutexLocker locker(&m_mutex);
     if ( m_portName != portName )
         m_portHasChanged = true;
@@ -103,7 +103,7 @@ void PortThread::run(){
                     }
 
                 } else {
-                    emit result(false, tr("Wait write request timeout %1")
+                    emit result(false, tr("Timeout %1")
                                 .arg(QTime::currentTime().toString()),currentTransaction.type);
                     break;
                 }

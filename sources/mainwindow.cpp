@@ -4,6 +4,9 @@
 #include "mytabwidget.h"
 #include "channel.h"
 
+#include <QSerialPort>
+#include <QSerialPortInfo>
+
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent), ui(new Ui::MainWindow){
     ui->setupUi(this);
@@ -34,8 +37,30 @@ MainWindow::MainWindow(QWidget *parent)
     m_measuresDock = new MeasuresDock(ui->plotter, this);
     m_measuresDock->setAllowedAreas(Qt::AllDockWidgetAreas);
     addDockWidget(Qt::BottomDockWidgetArea,m_measuresDock);
+
+    m_portComboBox = new QComboBox(this);
+    const auto infos = QSerialPortInfo::availablePorts();
+    for (const QSerialPortInfo &info : infos)
+        m_portComboBox->addItem(info.portName());
+    ui->connectionToolBar->addWidget(m_portComboBox);
+
+    setUiEnable(false);
+
+    connect(ui->plotter,SIGNAL(newCommunicationMessage(QString)), ui->statusBar,SLOT(showMessage(QString)));
+    connect(ui->plotter,SIGNAL(setUiEnabled(bool)), this,SLOT(setUiEnable(bool)));
+
+    ui->plotter->connectHardWare("COM9");
 }
 
 MainWindow::~MainWindow(){
     delete ui;
+}
+
+void MainWindow::setUiEnable(bool enable){
+    ui->plotter->setEnabled(enable);
+    m_mainDock->setEnabled(enable);
+    m_channelsDock->setEnabled(enable);
+    m_measuresDock->setEnabled(enable);
+    ui->menuBar->setEnabled(enable);
+    ui->mainToolBar->setEnabled(enable);
 }

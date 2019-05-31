@@ -3,6 +3,8 @@
 
 #include <QMainWindow>
 #include <QHBoxLayout>
+#include <QComboBox>
+#include <QLabel>
 
 #include "portthread.h"
 #include "channelsdock.h"
@@ -21,13 +23,16 @@ public:
     explicit MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
+public slots:
+    void setUiEnable(bool enable);
+
 private:
     Ui::MainWindow *ui;
 
-    PortThread m_communicationThread;
     ChannelsDock *m_channelsDock;
     MainDock *m_mainDock;
     MeasuresDock *m_measuresDock;
+    QComboBox *m_portComboBox;    
 };
 
 #endif // MAINWINDOW_H

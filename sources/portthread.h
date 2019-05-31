@@ -23,7 +23,7 @@ public:
     ~PortThread();
 
     void transaction(int waitTimeout, const QQueue<Command> &commands, int type);
-    void setPort(QString &portName);
+    void setPort(QString portName);
 
 signals:
     void result(bool success, const QString &error, int type);

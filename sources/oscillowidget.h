@@ -3,8 +3,11 @@
 
 #include <QVector>
 #include <QColor>
+
 #include "qcustomplot.h"
 #include "xresticker.h"
+#include "portthread.h"
+
 class Cursor;
 class Channel;
 
@@ -26,18 +29,30 @@ public:
     void setActiveChannel(int channel);
     QVector<Channel *> channels();
     int hRes();
+    void connectHardWare(QString port);
 
 signals:
     void channelResChanged(int res, int index);
     void activeChannelChanged(int channel);
     void channelColorChanged(QColor color, int index);
     void hResChanged();
+    void newCommunicationMessage(QString message);
+    void setUiEnabled(bool enable);
 
 public slots:
     void toggleCursors(int toggle);
     void updateHRes(int res);
+    void changeTrigMode(bool fallingEdge);
+    void updateChannelCoupling(int mode, int channel);
+    void updateYRes(int res, int channel);
+    void updateTrigValue();
+    void updateTrigMode(int trigMode);
+    void updateData(QByteArray data,int channel);
 
-private:
+private slots:
+    void onCommandResult(bool success, QString error, int type);
+
+private:    
     Cursor *m_triggerCursor;
     Cursor *m_vCursor1;
     Cursor *m_vCursor2;
@@ -50,6 +65,12 @@ private:
     int m_activeChannel;
     XResTicker *m_ticker;
     int m_hRes;
+    QQueue<Command> m_queue;
+    PortThread m_communicationThread;
+    QString m_comPort;
+    QVector<double> xVector;
+    bool m_trigOnFallingEdge;
+    int m_trigMode;
 };
 
 #endif // OSCILLOWIDGET_H

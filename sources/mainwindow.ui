@@ -14,7 +14,7 @@
    <string>Oscilloscope</string>
   </property>
   <property name="windowIcon">
-   <iconset resource="../Oscillo/sources/oscillo.qrc">
+   <iconset resource="oscilloscope.qrc">
     <normaloff>:/pictures/sine.png</normaloff>:/pictures/sine.png</iconset>
   </property>
   <widget class="OscilloWidget" name="plotter"/>
@@ -27,6 +27,59 @@
      <height>21</height>
     </rect>
    </property>
+   <widget class="QMenu" name="menuFile">
+    <property name="title">
+     <string>File</string>
+    </property>
+    <addaction name="actionOpen"/>
+    <addaction name="actionRecord"/>
+    <addaction name="actionSave"/>
+    <addaction name="actionSave_as"/>
+    <addaction name="separator"/>
+    <addaction name="actionScreen_shot"/>
+    <addaction name="separator"/>
+    <addaction name="actionQuit"/>
+   </widget>
+   <widget class="QMenu" name="menuOptions">
+    <property name="title">
+     <string>Options</string>
+    </property>
+    <addaction name="actionOptions"/>
+   </widget>
+   <widget class="QMenu" name="menu">
+    <property name="title">
+     <string>?</string>
+    </property>
+    <addaction name="actionHelp"/>
+    <addaction name="actionAbout"/>
+   </widget>
+   <widget class="QMenu" name="menuMode">
+    <property name="title">
+     <string>Mode</string>
+    </property>
+    <addaction name="actionNormal"/>
+    <addaction name="actionSingle_shot"/>
+   </widget>
+   <widget class="QMenu" name="menuZoom">
+    <property name="title">
+     <string>Zoom</string>
+    </property>
+    <addaction name="actionClear"/>
+    <addaction name="actionZoom_in"/>
+    <addaction name="actionZoom_out"/>
+   </widget>
+   <widget class="QMenu" name="menuView">
+    <property name="title">
+     <string>View</string>
+    </property>
+    <addaction name="actionFullScreen"/>
+   </widget>
+   <addaction name="menuFile"/>
+   <addaction name="menuZoom"/>
+   <addaction name="menuMode"/>
+   <addaction name="menuOptions"/>
+   <addaction name="menuView"/>
+   <addaction name="menu"/>
   </widget>
   <widget class="QToolBar" name="mainToolBar">
    <attribute name="toolBarArea">
@@ -35,8 +88,171 @@
    <attribute name="toolBarBreak">
     <bool>false</bool>
    </attribute>
+   <addaction name="actionScreen_shot"/>
+   <addaction name="separator"/>
+   <addaction name="actionOpen"/>
+   <addaction name="actionRecord"/>
+   <addaction name="actionSave"/>
+   <addaction name="separator"/>
+   <addaction name="actionNormal"/>
+   <addaction name="actionSingle_shot"/>
+   <addaction name="separator"/>
+   <addaction name="actionClear"/>
+   <addaction name="actionZoom_in"/>
+   <addaction name="actionZoom_out"/>
+   <addaction name="separator"/>
+   <addaction name="actionFullScreen"/>
+   <addaction name="separator"/>
+   <addaction name="actionOptions"/>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
+  <widget class="QToolBar" name="connectionToolBar">
+   <property name="windowTitle">
+    <string>toolBar</string>
+   </property>
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+  </widget>
+  <action name="actionQuit">
+   <property name="text">
+    <string>Quit</string>
+   </property>
+  </action>
+  <action name="actionOptions">
+   <property name="icon">
+    <iconset resource="oscilloscope.qrc">
+     <normaloff>:/pictures/gear.png</normaloff>:/pictures/gear.png</iconset>
+   </property>
+   <property name="text">
+    <string>Options...</string>
+   </property>
+  </action>
+  <action name="actionHelp">
+   <property name="icon">
+    <iconset resource="oscilloscope.qrc">
+     <normaloff>:/pictures/help2.png</normaloff>:/pictures/help2.png</iconset>
+   </property>
+   <property name="text">
+    <string>Help...</string>
+   </property>
+  </action>
+  <action name="actionAbout">
+   <property name="icon">
+    <iconset resource="oscilloscope.qrc">
+     <normaloff>:/pictures/about.png</normaloff>:/pictures/about.png</iconset>
+   </property>
+   <property name="text">
+    <string>About...</string>
+   </property>
+  </action>
+  <action name="actionNormal">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Normal</string>
+   </property>
+  </action>
+  <action name="actionSingle_shot">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="oscilloscope.qrc">
+     <normaloff>:/pictures/media_play_green.png</normaloff>:/pictures/media_play_green.png</iconset>
+   </property>
+   <property name="text">
+    <string>Single shot</string>
+   </property>
+  </action>
+  <action name="actionRecord">
+   <property name="icon">
+    <iconset resource="oscilloscope.qrc">
+     <normaloff>:/pictures/nav_plain_red.png</normaloff>:/pictures/nav_plain_red.png</iconset>
+   </property>
+   <property name="text">
+    <string>Record</string>
+   </property>
+  </action>
+  <action name="actionSave">
+   <property name="icon">
+    <iconset resource="oscilloscope.qrc">
+     <normaloff>:/pictures/disk_blue.png</normaloff>:/pictures/disk_blue.png</iconset>
+   </property>
+   <property name="text">
+    <string>Save</string>
+   </property>
+  </action>
+  <action name="actionOpen">
+   <property name="icon">
+    <iconset resource="oscilloscope.qrc">
+     <normaloff>:/pictures/folder.png</normaloff>:/pictures/folder.png</iconset>
+   </property>
+   <property name="text">
+    <string>Open...</string>
+   </property>
+  </action>
+  <action name="actionSave_as">
+   <property name="icon">
+    <iconset resource="oscilloscope.qrc">
+     <normaloff>:/pictures/disks.png</normaloff>:/pictures/disks.png</iconset>
+   </property>
+   <property name="text">
+    <string>Save as...</string>
+   </property>
+  </action>
+  <action name="actionClear">
+   <property name="icon">
+    <iconset resource="oscilloscope.qrc">
+     <normaloff>:/pictures/view_1_1.png</normaloff>:/pictures/view_1_1.png</iconset>
+   </property>
+   <property name="text">
+    <string>Clear</string>
+   </property>
+  </action>
+  <action name="actionZoom_in">
+   <property name="icon">
+    <iconset resource="oscilloscope.qrc">
+     <normaloff>:/pictures/zoom_in.png</normaloff>:/pictures/zoom_in.png</iconset>
+   </property>
+   <property name="text">
+    <string>Zoom in</string>
+   </property>
+  </action>
+  <action name="actionZoom_out">
+   <property name="icon">
+    <iconset resource="oscilloscope.qrc">
+     <normaloff>:/pictures/zoom_out.png</normaloff>:/pictures/zoom_out.png</iconset>
+   </property>
+   <property name="text">
+    <string>Zoom out</string>
+   </property>
+  </action>
+  <action name="actionFullScreen">
+   <property name="icon">
+    <iconset resource="oscilloscope.qrc">
+     <normaloff>:/pictures/fit_to_size.png</normaloff>:/pictures/fit_to_size.png</iconset>
+   </property>
+   <property name="text">
+    <string>FullScreen</string>
+   </property>
+  </action>
+  <action name="actionScreen_shot">
+   <property name="icon">
+    <iconset resource="oscilloscope.qrc">
+     <normaloff>:/pictures/camera2.png</normaloff>:/pictures/camera2.png</iconset>
+   </property>
+   <property name="text">
+    <string>Screen shot</string>
+   </property>
+  </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <customwidgets>
@@ -47,6 +263,8 @@
    <container>1</container>
   </customwidget>
  </customwidgets>
- <resources/>
+ <resources>
+  <include location="oscilloscope.qrc"/>
+ </resources>
  <connections/>
 </ui>
