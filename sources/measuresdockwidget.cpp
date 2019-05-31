@@ -28,6 +28,7 @@ MeasuresDockWidget::MeasuresDockWidget(OscilloWidget *plotter, QWidget *parent)
     connect(m_plotter->hCursor1(),SIGNAL(valueChanged(int)),this,SLOT(updateHCursorsTable()));
     connect(m_plotter->hCursor2(),SIGNAL(valueChanged(int)),this,SLOT(updateHCursorsTable()));
     connect(m_plotter,SIGNAL(channelResChanged(int,int)),this,SLOT(updateHCursorsTable()));
+    connect(m_plotter,SIGNAL(signalChanged(int,int,int)),this,SLOT(onsignalChanged(int,int,int)));
 
     updateVCursorsTable();
     updateHCursorsTable();
@@ -35,6 +36,20 @@ MeasuresDockWidget::MeasuresDockWidget(OscilloWidget *plotter, QWidget *parent)
 
 MeasuresDockWidget::~MeasuresDockWidget(){
     delete ui;
+}
+
+void MeasuresDockWidget::onsignalChanged(int vmin, int vmax, int channel){
+    int absVal = vmax - vmin;
+    if ( channel == 0 ){
+        ui->channel1Table->item(0,0)->setText(formatedVoltage(voltValue(absVal,0)));
+        ui->channel1Table->item(1,0)->setText(formatedVoltage(voltValue(vmax-127.5,0)));
+        ui->channel1Table->item(2,0)->setText(formatedVoltage(voltValue(vmin-127.5,0)));
+    }
+    if ( channel == 1 ){
+        ui->channel2Table->item(0,0)->setText(formatedVoltage(voltValue(absVal,1)));
+        ui->channel2Table->item(1,0)->setText(formatedVoltage(voltValue(vmax-127.5,1)));
+        ui->channel2Table->item(2,0)->setText(formatedVoltage(voltValue(vmin-127.5,1)));
+    }
 }
 
 void MeasuresDockWidget::updateHCursorsTable(){

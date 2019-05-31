@@ -10,6 +10,7 @@
 #include "channelsdock.h"
 #include "maindock.h"
 #include "measuresdock.h"
+#include "settingsdialog.h"
 
 namespace Ui {
 class MainWindow;
@@ -26,6 +27,9 @@ public:
 public slots:
     void setUiEnable(bool enable);
 
+private slots:
+    void onSettingsDLG();
+
 private:
     Ui::MainWindow *ui;
 
@@ -33,6 +37,7 @@ private:
     MainDock *m_mainDock;
     MeasuresDock *m_measuresDock;
     QComboBox *m_portComboBox;    
+    bool m_unefois = false;
 };
 
 #endif // MAINWINDOW_H

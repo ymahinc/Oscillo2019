@@ -5,6 +5,9 @@
 
 OscilloWidget::OscilloWidget(QWidget *parent)
     : QCustomPlot(parent) {
+
+    //setOpenGl(true);
+
     m_trigOnFallingEdge = false;
     m_trigMode = 1;
 
@@ -83,18 +86,27 @@ OscilloWidget::OscilloWidget(QWidget *parent)
 
     connect(&m_communicationThread,SIGNAL(result(bool,QString,int)),this,SLOT(onCommandResult(bool,QString,int)));
     connect(&m_communicationThread,SIGNAL(newDataAvailable(QByteArray,int)),this,SLOT(updateData(QByteArray,int)));
+    connect(&m_communicationThread,SIGNAL(newTrigStateAvailable(bool)),this,SIGNAL(newTrigStateAvailable(bool)));
 }
 
 void OscilloWidget::updateData(QByteArray data,int channel){
+    int vMin = 255;
+    int vMax = 0;
     for (int i =0; i < 1024; i++ ){
         quint8 val = data.at(i);
+
         if ( channels().at(channel-1)->isInverted() )
             val = 255 - val;
-        channels().at(channel-1)->yData[i] = val + channels().at(channel-1)->dY();//(double)data.at(i)+128;
+        channels().at(channel-1)->yData[i] = val + channels().at(channel-1)->dY();
+        if ( val < vMin )
+            vMin = val;
+        if ( val > vMax )
+            vMax = val;
     }
     int dX = channels().at(channel-1)->dX();
     graph(channel-1)->setData(xVector, channels().at(channel-1)->yData.mid(512-150+dX,300));
     replot();
+    emit signalChanged(vMin, vMax, channel -1);
 }
 
 void OscilloWidget::updateTrigMode(int trigMode){
@@ -148,8 +160,6 @@ void OscilloWidget::connectHardWare(QString port){
     m_queue.enqueue(cmd);
 
     m_communicationThread.transaction(1000,m_queue,1);
-
-    //updateParams();
 }
 
 void OscilloWidget::onCommandResult(bool success, QString error, int type){

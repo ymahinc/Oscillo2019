@@ -20,6 +20,7 @@ public:
 private slots:
     void updateVCursorsTable();
     void updateHCursorsTable();
+    void onsignalChanged(int vmin, int vmax, int channel);
 
 private:
     Ui::MeasuresDockWidget *ui;

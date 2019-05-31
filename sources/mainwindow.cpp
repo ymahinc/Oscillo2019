@@ -48,12 +48,53 @@ MainWindow::MainWindow(QWidget *parent)
 
     connect(ui->plotter,SIGNAL(newCommunicationMessage(QString)), ui->statusBar,SLOT(showMessage(QString)));
     connect(ui->plotter,SIGNAL(setUiEnabled(bool)), this,SLOT(setUiEnable(bool)));
+    connect(m_portComboBox,SIGNAL(currentIndexChanged(QString)),ui->plotter,SLOT(connectHardWare(QString)));
+    connect(ui->actionOptions,SIGNAL(triggered()),this,SLOT(onSettingsDLG()));
 
     ui->plotter->connectHardWare("COM9");
 }
 
 MainWindow::~MainWindow(){
     delete ui;
+}
+
+void MainWindow::onSettingsDLG(){
+    SettingsDialog *dlg = new SettingsDialog(this);
+    if ( dlg->exec() == QDialog::Accepted ){
+        int ls = dlg->interpolation();
+        for (int i = 0; i < ui->plotter->channels().count(); i++){
+            ui->plotter->graph(i)->setScatterStyle(QCPScatterStyle::ssNone);
+            switch(ls){
+            case 0:
+                ui->plotter->graph(i)->setLineStyle(QCPGraph::lsLine);
+                break;
+            case 1:
+                ui->plotter->graph(i)->setLineStyle(QCPGraph::lsNone);
+                ui->plotter->graph(i)->setScatterStyle(QCPScatterStyle::ssDot);
+                break;
+            case 2:
+                ui->plotter->graph(i)->setLineStyle(QCPGraph::lsStepLeft);
+                break;
+            case 3:
+                ui->plotter->graph(i)->setLineStyle(QCPGraph::lsStepRight);
+                break;
+            case 4:
+                ui->plotter->graph(i)->setLineStyle(QCPGraph::lsStepCenter);
+                break;
+            case 5:
+                ui->plotter->graph(i)->setLineStyle(QCPGraph::lsLine);
+                break;
+            }
+        }
+        if ( dlg->antiAliasing() ){
+            ui->plotter->setNotAntialiasedElements(QCP::aeNone);
+            ui->plotter->setAntialiasedElements(QCP::aeAll);
+        }else{
+            ui->plotter->setAntialiasedElements(QCP::aeNone);
+            ui->plotter->setNotAntialiasedElements(QCP::aeAll);
+        }
+        ui->plotter->replot();
+    }
 }
 
 void MainWindow::setUiEnable(bool enable){

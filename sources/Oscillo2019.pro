@@ -6,7 +6,7 @@
 
 QT       += core gui serialport
 
-greaterThan(QT_MAJOR_VERSION, 4): QT += widgets printsupport
+greaterThan(QT_MAJOR_VERSION, 4): QT += widgets printsupport opengl
 
 TARGET = Oscillo2019
 TEMPLATE = app
@@ -23,6 +23,10 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 CONFIG += c++11
+
+DEFINES += QCUSTOMPLOT_USE_OPENGL
+
+LIBS += -LC:\Qt513b\5.13.0\mingw73_32\lib\libQt5OpenGL.a -lopengl32
 
 SOURCES += \
         main.cpp \
@@ -47,7 +51,9 @@ SOURCES += \
     measuresdockwidget.cpp \
     measuresdock.cpp \
     mathswidget.cpp \
-    channel.cpp
+    channel.cpp \
+    led.cpp \
+    settingsdialog.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -72,7 +78,9 @@ HEADERS += \
     measuresdockwidget.h \
     measuresdock.h \
     mathswidget.h \
-    channel.h
+    channel.h \
+    led.h \
+    settingsdialog.h
 
 FORMS += \
         mainwindow.ui \
@@ -82,7 +90,9 @@ FORMS += \
     xresdial.ui \
     maindockwidget.ui \
     measuresdockwidget.ui \
-    mathswidget.ui
+    mathswidget.ui \
+    led.ui \
+    settingsdialog.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

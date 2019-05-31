@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>154</width>
-    <height>150</height>
+    <width>152</width>
+    <height>174</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -20,6 +20,9 @@
    <string>Form</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout_6">
+   <property name="spacing">
+    <number>0</number>
+   </property>
    <property name="leftMargin">
     <number>0</number>
    </property>
@@ -34,16 +37,10 @@
    </property>
    <item>
     <layout class="QVBoxLayout" name="verticalLayout_5">
-     <property name="spacing">
-      <number>0</number>
-     </property>
-     <property name="sizeConstraint">
-      <enum>QLayout::SetMinimumSize</enum>
-     </property>
      <item>
-      <layout class="QHBoxLayout" name="horizontalLayout">
-       <property name="sizeConstraint">
-        <enum>QLayout::SetMinimumSize</enum>
+      <layout class="QHBoxLayout" name="horizontalLayout_3">
+       <property name="spacing">
+        <number>0</number>
        </property>
        <item>
         <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -99,16 +96,16 @@
            </property>
            <layout class="QVBoxLayout" name="verticalLayout_3">
             <property name="leftMargin">
-             <number>2</number>
+             <number>0</number>
             </property>
             <property name="topMargin">
-             <number>2</number>
+             <number>0</number>
             </property>
             <property name="rightMargin">
-             <number>2</number>
+             <number>0</number>
             </property>
             <property name="bottomMargin">
-             <number>2</number>
+             <number>0</number>
             </property>
             <item>
              <layout class="QVBoxLayout" name="verticalLayout">
@@ -145,11 +142,31 @@
                </widget>
               </item>
               <item>
-               <widget class="QCheckBox" name="triggerModeCheckBox">
-                <property name="text">
-                 <string>falling edge</string>
-                </property>
-               </widget>
+               <layout class="QHBoxLayout" name="horizontalLayout">
+                <item>
+                 <widget class="QCheckBox" name="triggerModeCheckBox">
+                  <property name="text">
+                   <string>falling edge</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="Led" name="led" native="true"/>
+                </item>
+                <item>
+                 <spacer name="horizontalSpacer_3">
+                  <property name="orientation">
+                   <enum>Qt::Horizontal</enum>
+                  </property>
+                  <property name="sizeHint" stdset="0">
+                   <size>
+                    <width>0</width>
+                    <height>0</height>
+                   </size>
+                  </property>
+                 </spacer>
+                </item>
+               </layout>
               </item>
               <item>
                <layout class="QHBoxLayout" name="horizontalLayout_2">
@@ -284,6 +301,12 @@
    <class>MYDial</class>
    <extends>QDial</extends>
    <header>mydial.h</header>
+  </customwidget>
+  <customwidget>
+   <class>Led</class>
+   <extends>QWidget</extends>
+   <header>led.h</header>
+   <container>1</container>
   </customwidget>
  </customwidgets>
  <resources/>

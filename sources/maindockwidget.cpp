@@ -25,6 +25,7 @@ MainDockWidget::MainDockWidget(OscilloWidget *plotter, QWidget *parent) :
     connect(ui->xResDial,SIGNAL(resChanged(int)),m_plotter,SLOT(updateHRes(int)));
     connect(m_plotter,SIGNAL(channelResChanged(int,int)),this,SLOT(updateTrigLabel(int,int)));
     connect(m_plotter,SIGNAL(channelColorChanged(QColor,int)),this,SLOT(onColorChange(QColor,int)));
+    connect(m_plotter,SIGNAL(newTrigStateAvailable(bool)),ui->led,SLOT(setOnOff(bool)));
     connect(ui->cursorsCheckBox,SIGNAL(stateChanged(int)),m_plotter,SLOT(toggleCursors(int)));
     connect(ui->triggerModeCheckBox,SIGNAL(toggled(bool)),m_plotter,SLOT(changeTrigMode(bool)));
 

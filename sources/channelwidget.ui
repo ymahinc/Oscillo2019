@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>276</width>
+    <width>257</width>
     <height>422</height>
    </rect>
   </property>
@@ -218,8 +218,17 @@ QSlider::handle:horizontal {
           </item>
           <item>
            <layout class="QVBoxLayout" name="verticalLayout">
+            <property name="sizeConstraint">
+             <enum>QLayout::SetMinimumSize</enum>
+            </property>
             <item>
              <widget class="QCheckBox" name="invertCheckBox">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
               <property name="text">
                <string>Invert</string>
               </property>
@@ -227,6 +236,12 @@ QSlider::handle:horizontal {
             </item>
             <item>
              <widget class="QLabel" name="label_2">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
               <property name="text">
                <string>Color:</string>
               </property>
@@ -235,7 +250,14 @@ QSlider::handle:horizontal {
             <item>
              <layout class="QHBoxLayout" name="horizontalLayout_2">
               <item>
-               <widget class="WidgetColorPicker" name="colorWidget" native="true"/>
+               <widget class="WidgetColorPicker" name="colorWidget" native="true">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+               </widget>
               </item>
               <item>
                <spacer name="horizontalSpacer">
@@ -244,7 +266,7 @@ QSlider::handle:horizontal {
                 </property>
                 <property name="sizeHint" stdset="0">
                  <size>
-                  <width>40</width>
+                  <width>0</width>
                   <height>20</height>
                  </size>
                 </property>
@@ -259,8 +281,8 @@ QSlider::handle:horizontal {
               </property>
               <property name="sizeHint" stdset="0">
                <size>
-                <width>20</width>
-                <height>40</height>
+                <width>0</width>
+                <height>0</height>
                </size>
               </property>
              </spacer>
@@ -272,7 +294,7 @@ QSlider::handle:horizontal {
         <item>
          <widget class="QLabel" name="label_3">
           <property name="sizePolicy">
-           <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
+           <sizepolicy hsizetype="Fixed" vsizetype="Minimum">
             <horstretch>0</horstretch>
             <verstretch>0</verstretch>
            </sizepolicy>
@@ -283,7 +305,20 @@ QSlider::handle:horizontal {
          </widget>
         </item>
         <item>
-         <widget class="QListWidget" name="listWidget"/>
+         <widget class="QListWidget" name="listWidget">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>237</width>
+            <height>16777215</height>
+           </size>
+          </property>
+         </widget>
         </item>
        </layout>
       </item>

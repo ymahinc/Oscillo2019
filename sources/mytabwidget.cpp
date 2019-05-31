@@ -7,8 +7,8 @@
 
 MYTabWidget::MYTabWidget(OscilloWidget *plotter, QWidget *parent)
     :   QTabWidget(parent), m_plotter(plotter){
-    m_mathsWidget = new MathsWidget(this);
-    addTab(m_mathsWidget,tr("Maths"));
+    //m_mathsWidget = new MathsWidget(this);
+    //addTab(m_mathsWidget,tr("Maths"));
 }
 
 ChannelWidget *MYTabWidget::channel(int index){

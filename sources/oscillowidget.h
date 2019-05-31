@@ -29,7 +29,6 @@ public:
     void setActiveChannel(int channel);
     QVector<Channel *> channels();
     int hRes();
-    void connectHardWare(QString port);
 
 signals:
     void channelResChanged(int res, int index);
@@ -38,8 +37,11 @@ signals:
     void hResChanged();
     void newCommunicationMessage(QString message);
     void setUiEnabled(bool enable);
+    void signalChanged(int vmin, int vmax, int channel);
+    void newTrigStateAvailable(bool);
 
 public slots:
+    void connectHardWare(QString port);
     void toggleCursors(int toggle);
     void updateHRes(int res);
     void changeTrigMode(bool fallingEdge);
