@@ -50,6 +50,9 @@ public slots:
     void updateTrigValue();
     void updateTrigMode(int trigMode);
     void updateData(QByteArray data,int channel);
+    void setMathChannelColor(QColor color);
+    void toggleMathAxes(bool toggle);
+    void toggleAxes(bool toggle);
 
 private slots:
     void onCommandResult(bool success, QString error, int type);
@@ -73,6 +76,10 @@ private:
     QVector<double> xVector;
     bool m_trigOnFallingEdge;
     int m_trigMode;
+    QCPAxis *m_mathYAxis;
+    QCPAxis *m_mathXAxis;
+    bool m_showAxes;
+    bool m_mathAxesVisibles;
 };
 
 #endif // OSCILLOWIDGET_H

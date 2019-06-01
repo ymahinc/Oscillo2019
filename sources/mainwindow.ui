@@ -59,6 +59,7 @@
     </property>
     <addaction name="actionNormal"/>
     <addaction name="actionSingle_shot"/>
+    <addaction name="actionReplay"/>
    </widget>
    <widget class="QMenu" name="menuZoom">
     <property name="title">
@@ -96,6 +97,7 @@
    <addaction name="separator"/>
    <addaction name="actionNormal"/>
    <addaction name="actionSingle_shot"/>
+   <addaction name="actionReplay"/>
    <addaction name="separator"/>
    <addaction name="actionClear"/>
    <addaction name="actionZoom_in"/>
@@ -155,6 +157,10 @@
    </property>
    <property name="checked">
     <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="oscilloscope.qrc">
+     <normaloff>:/pictures/recycle.png</normaloff>:/pictures/recycle.png</iconset>
    </property>
    <property name="text">
     <string>Normal</string>
@@ -251,6 +257,18 @@
    </property>
    <property name="text">
     <string>Screen shot</string>
+   </property>
+  </action>
+  <action name="actionReplay">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="oscilloscope.qrc">
+     <normaloff>:/pictures/movie_run.png</normaloff>:/pictures/movie_run.png</iconset>
+   </property>
+   <property name="text">
+    <string>Replay</string>
    </property>
   </action>
  </widget>

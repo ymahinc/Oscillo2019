@@ -10,6 +10,14 @@ SettingsDialog::~SettingsDialog(){
     delete ui;
 }
 
+void SettingsDialog::setAxesVisibles(bool visible){
+    ui->axesCheckBox->setChecked(visible);
+}
+
+bool SettingsDialog::axesVisibles(){
+    return ui->axesCheckBox->isChecked();
+}
+
 void SettingsDialog::setAntiAliasing(bool antiAliasing){
     ui->antiAlisaingCheckBox->setChecked(antiAliasing);
 }

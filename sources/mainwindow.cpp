@@ -11,6 +11,12 @@ MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent), ui(new Ui::MainWindow){
     ui->setupUi(this);
 
+    m_modeActionGroup = new QActionGroup(this);
+    m_modeActionGroup->addAction(ui->actionNormal);
+    m_modeActionGroup->addAction(ui->actionSingle_shot);
+    m_modeActionGroup->addAction(ui->actionReplay);
+    m_modeActionGroup->setExclusive(true);
+
     setCorner(Qt::BottomRightCorner, Qt::RightDockWidgetArea);
 
     m_channelsDock = new ChannelsDock(ui->plotter, this);
@@ -27,6 +33,12 @@ MainWindow::MainWindow(QWidget *parent)
     chan2->updateColor(Qt::blue);
     ui->plotter->addChannel(chan2);
     m_channelsDock->tabWidget()->addChannel(chan2);
+
+    Channel *mathChan = new Channel(ui->plotter,2, true);
+    mathChan->setMathChannel(true);
+    mathChan->updateColor(Qt::red);
+    ui->plotter->addChannel(mathChan);
+    m_channelsDock->tabWidget()->addChannel(mathChan);
 
     m_channelsDock->tabWidget()->setCurrentIndex(0);
 
@@ -93,6 +105,7 @@ void MainWindow::onSettingsDLG(){
             ui->plotter->setAntialiasedElements(QCP::aeNone);
             ui->plotter->setNotAntialiasedElements(QCP::aeAll);
         }
+        ui->plotter->toggleAxes(dlg->axesVisibles());
         ui->plotter->replot();
     }
 }

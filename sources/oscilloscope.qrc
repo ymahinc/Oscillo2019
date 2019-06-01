@@ -21,5 +21,7 @@
         <file>pictures/view_1_1.png</file>
         <file>pictures/zoom_in.png</file>
         <file>pictures/zoom_out.png</file>
+        <file>pictures/movie_run.png</file>
+        <file>pictures/recycle.png</file>
     </qresource>
 </RCC>

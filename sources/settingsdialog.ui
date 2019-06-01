@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>176</width>
-    <height>100</height>
+    <height>123</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -93,6 +93,16 @@
         </size>
        </property>
       </spacer>
+     </item>
+     <item>
+      <widget class="QCheckBox" name="axesCheckBox">
+       <property name="text">
+        <string>Show axes</string>
+       </property>
+       <property name="checked">
+        <bool>true</bool>
+       </property>
+      </widget>
      </item>
      <item>
       <widget class="QDialogButtonBox" name="buttonBox">

@@ -21,6 +21,8 @@ public:
     explicit ChannelWidget(Channel *channel, QWidget *parent = nullptr);
     ~ChannelWidget();
     int currentRes();
+    void setMathMode(bool mathMode);
+    void setChecked(bool checked);
 
 private slots:
     void updateColor(QColor color);

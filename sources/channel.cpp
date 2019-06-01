@@ -2,8 +2,8 @@
 
 #include "cursor.h"
 
-Channel::Channel(OscilloWidget *parent, int index)
-    : QObject(parent), m_plotter(parent), m_index(index){
+Channel::Channel(OscilloWidget *parent, int index, bool mathChannel)
+    : QObject(parent), m_plotter(parent), m_index(index), m_mathChannel(mathChannel){
 
     m_couplingMode = 0;
 
@@ -22,7 +22,7 @@ Channel::Channel(OscilloWidget *parent, int index)
     QSharedPointer<YResTicker> axisTicker(new YResTicker);
     m_ticker=axisTicker.data();
 
-    if ( m_index % 2 )
+    if ( m_index % 2 || m_mathChannel )
         m_axis = m_plotter->axisRect()->axis(QCPAxis::atRight, axisIndex);
     else
         m_axis = m_plotter->axisRect()->axis(QCPAxis::atLeft, axisIndex);
@@ -39,6 +39,14 @@ Channel::Channel(OscilloWidget *parent, int index)
     m_plotter->graph(m_index)->setData(x, yData.mid(512-150,300));
 
     updateColor(m_color);
+}
+
+void Channel::setMathChannel(bool mathChannel){
+    m_mathChannel = mathChannel;
+}
+
+bool Channel::isMathChannel(){
+    return m_mathChannel;
 }
 
 void Channel::setInverted(bool inverted){
@@ -88,6 +96,8 @@ void Channel::updateColor(QColor color){
     if ( m_plotter->currentChannelTrigger() == m_index )
         m_plotter->triggerCursor()->setPen(QPen(color, 1.0, Qt::DashLine));
     m_plotter->replot();
+    if ( m_mathChannel )
+        m_plotter->setMathChannelColor(color);
     emit m_plotter->channelColorChanged(color, m_index);
 }
 
@@ -111,6 +121,9 @@ void Channel::setVisible(bool visible){
     m_plotter->graph(m_index)->setVisible(visible);
     m_plotter->replot();
     m_isVisible = visible;
+    if ( m_mathChannel ){
+        m_plotter->toggleMathAxes(visible);
+    }
 }
 
 bool Channel::isVisible(){

@@ -6,7 +6,14 @@
 OscilloWidget::OscilloWidget(QWidget *parent)
     : QCustomPlot(parent) {
 
+    m_showAxes = true;
+
     //setOpenGl(true);
+
+    m_mathYAxis = axisRect()->addAxis(QCPAxis::atRight);
+    m_mathXAxis = axisRect()->addAxis(QCPAxis::atBottom);
+    setMathChannelColor(Qt::red);
+    toggleMathAxes(false);
 
     m_trigOnFallingEdge = false;
     m_trigMode = 1;
@@ -21,6 +28,9 @@ OscilloWidget::OscilloWidget(QWidget *parent)
     setBackground(QBrush(Qt::black));
 
     yAxis2->setVisible(true);
+    xAxis2->setVisible(true);
+    xAxis2->setBasePen(QPen(Qt::white));
+    xAxis2->setTicks(false);
 
     m_channelTrigger = 0;
     m_activeChannel = 0;
@@ -89,6 +99,41 @@ OscilloWidget::OscilloWidget(QWidget *parent)
     connect(&m_communicationThread,SIGNAL(newTrigStateAvailable(bool)),this,SIGNAL(newTrigStateAvailable(bool)));
 }
 
+void OscilloWidget::toggleAxes(bool toggle){
+    m_showAxes = toggle;
+    for(int i = 0; i < axisRect()->axes().count(); i++){
+        if (toggle){
+            axisRect()->axes().at(i)->setTickPen(axisRect()->axes().at(i)->basePen());
+            axisRect()->axes().at(i)->setSubTickPen(axisRect()->axes().at(i)->basePen());
+            axisRect()->axes().at(i)->setTickLabelColor(axisRect()->axes().at(i)->basePen().color());
+            m_mathXAxis->setVisible(m_mathAxesVisibles);
+            m_mathYAxis->setVisible(m_mathAxesVisibles);
+        }else{
+            axisRect()->axes().at(i)->setTickPen(Qt::NoPen);
+            axisRect()->axes().at(i)->setSubTickPen(Qt::NoPen);
+            axisRect()->axes().at(i)->setTickLabelColor(QColor());
+            m_mathXAxis->setVisible(false);
+            m_mathYAxis->setVisible(false);
+        }
+    }
+}
+
+void OscilloWidget::toggleMathAxes(bool toggle){
+    m_mathAxesVisibles = toggle;
+    if ( m_showAxes ){
+        m_mathXAxis->setVisible(toggle);
+        m_mathYAxis->setVisible(toggle);
+    }
+}
+
+void OscilloWidget::setMathChannelColor(QColor color){
+    m_mathXAxis->setBasePen(QPen(color, 1));
+    m_mathXAxis->setTickPen(QPen(color, 1));
+    m_mathXAxis->setSubTickPen(QPen(color, 1));
+    m_mathXAxis->setTickLabelColor(color);
+    replot();
+}
+
 void OscilloWidget::updateData(QByteArray data,int channel){
     int vMin = 255;
     int vMax = 0;
@@ -130,6 +175,8 @@ void OscilloWidget::updateTrigValue(){
 }
 
 void OscilloWidget::updateYRes(int res, int channel){
+    if ( channels().at(channel)->isMathChannel() )
+        return;
     Command cmd { "YRES\n",QStringList("WAIT\r\n")};
     Command cmd2 {QString("%1\n").arg(channel+1),QStringList("WAIT\r\n")};
     Command cmd3 {QString("%1\n").arg(res+1),QStringList("OK\r\n")};
@@ -256,6 +303,8 @@ void OscilloWidget::addChannel(Channel *channel){
 }
 
 void OscilloWidget::updateChannelCoupling(int mode, int channel){
+    if ( channels().at(channel)->isMathChannel() )
+        return;
     QString strMode = "DC";
     switch(mode){
     case 0:

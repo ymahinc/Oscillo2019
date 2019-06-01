@@ -72,7 +72,7 @@
           <item>
            <layout class="QVBoxLayout" name="verticalLayout_2">
             <item>
-             <widget class="QComboBox" name="chan1ComboBox">
+             <widget class="QComboBox" name="channelComboBox">
               <item>
                <property name="text">
                 <string>DC</string>
@@ -292,7 +292,10 @@ QSlider::handle:horizontal {
          </layout>
         </item>
         <item>
-         <widget class="QLabel" name="label_3">
+         <widget class="MathsWidget" name="mathWidget" native="true"/>
+        </item>
+        <item>
+         <widget class="QLabel" name="waveLabel">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Fixed" vsizetype="Minimum">
             <horstretch>0</horstretch>
@@ -329,6 +332,12 @@ QSlider::handle:horizontal {
  </widget>
  <customwidgets>
   <customwidget>
+   <class>WidgetColorPicker</class>
+   <extends>QWidget</extends>
+   <header>widgetcolorpicker.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
    <class>YResDial</class>
    <extends>QWidget</extends>
    <header location="global">yresdial.h</header>
@@ -340,9 +349,9 @@ QSlider::handle:horizontal {
    <header>myslider.h</header>
   </customwidget>
   <customwidget>
-   <class>WidgetColorPicker</class>
+   <class>MathsWidget</class>
    <extends>QWidget</extends>
-   <header>widgetcolorpicker.h</header>
+   <header>mathswidget.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

@@ -4,7 +4,7 @@
 #include <QMainWindow>
 #include <QHBoxLayout>
 #include <QComboBox>
-#include <QLabel>
+#include <QActionGroup>
 
 #include "portthread.h"
 #include "channelsdock.h"
@@ -38,6 +38,7 @@ private:
     MeasuresDock *m_measuresDock;
     QComboBox *m_portComboBox;    
     bool m_unefois = false;
+    QActionGroup *m_modeActionGroup;
 };
 
 #endif // MAINWINDOW_H

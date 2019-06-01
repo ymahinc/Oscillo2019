@@ -4,7 +4,6 @@
 #include <QTabWidget>
 class ChannelWidget;
 class OscilloWidget;
-class MathsWidget;
 class Channel;
 
 class MYTabWidget : public QTabWidget
@@ -23,7 +22,7 @@ signals:
 private:
     QVector<ChannelWidget *> m_channelsWidgets;
     OscilloWidget *m_plotter;
-    MathsWidget *m_mathsWidget;
+    ChannelWidget *m_mathsWidget;
 };
 
 #endif // MYTABWIDGET_H

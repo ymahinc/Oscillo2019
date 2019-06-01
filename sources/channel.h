@@ -12,7 +12,7 @@ class Channel : public QObject
     Q_OBJECT
 
 public:
-    Channel(OscilloWidget *parent, int index);
+    Channel(OscilloWidget *parent, int index, bool mathChannel = false);
     QColor color();
     int currentRes();
     bool isVisible();
@@ -22,6 +22,8 @@ public:
     bool isInverted();
     int dX();
     int dY();
+    void setMathChannel(bool mathChannel);
+    bool isMathChannel();
 
 signals:
     void resChanged(int res, int index);
@@ -48,6 +50,7 @@ private:
     bool m_inverted;
     int m_dX;
     int m_dY;
+    bool m_mathChannel;
 };
 
 #endif // CHANNEL_H

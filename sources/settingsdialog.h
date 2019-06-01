@@ -18,6 +18,8 @@ public:
     bool antiAliasing();
     void setInterpolation(int interpolation);
     int interpolation();
+    void setAxesVisibles(bool visible);
+    bool axesVisibles();
 
 private:
     Ui::SettingsDialog *ui;
